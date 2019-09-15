@@ -11,8 +11,8 @@
 
     //================= scene and camera
     var scene = new THREE.Scene();
-    //scene.background = new THREE.Color( 0xcce0ff );
-    //scene.fog = new THREE.Fog( 0xcce0ff, 500, 800 );
+    scene.background = new THREE.Color( 0xcce0ff );
+    scene.fog = new THREE.Fog( 0xcce0ff, 500, 800 );
     var camera = new THREE.PerspectiveCamera(45, container.getBoundingClientRect().width / container.getBoundingClientRect().height, 3, 10000);
     camera.lookAt(new THREE.Vector3(0, 10, 0));
     camera.position.set( 50, 50, 75 );
@@ -78,7 +78,7 @@
     //==================================add texture
     var texture = new THREE.Texture();
     var imgLoader = new THREE.ImageLoader();
-    imgLoader.load('obj/mario/occipital.png',function(img)
+    imgLoader.load('obj/mario/1.png',function(img)
     {
       texture.image = img;
       texture.needsUpdate = true;
@@ -125,7 +125,7 @@
 
     //==================================================== Add obj
     var loader = new THREE.OBJLoader();
-    loader.load( 'obj/mario/brain.obj', function ( obj ) {
+    loader.load( 'obj/mario/Mario.obj', function ( obj ) {
 
       obj.traverse(function(child)
       {
@@ -140,10 +140,11 @@
           }
       }); 
       obj.scale.set(12, 12, 12);
-      obj.position.set(0, 0, 0);
-      //obj.rotateX(-Math.PI*0.5);
-      //obj.castShadow = true;
-      //obj.receiveShadow = true;
+      obj.position.set(0, 15, 0);
+      obj.rotateX(-Math.PI*0.5);
+      //obj.rotateY(-Math.PI*0.5);
+      obj.castShadow = true;
+      obj.receiveShadow = true;
       scene.add(obj);
 
 
@@ -265,19 +266,19 @@
 
 
     //==============add ground
-    // var Tloader = new THREE.TextureLoader();
-    // var groundTexture = Tloader.load( 'obj/grasslight-big.jpg' );
-    // groundTexture.wrapS = groundTexture.wrapT = THREE.RepeatWrapping;
-    // groundTexture.repeat.set( 16, 16 );
-    // groundTexture.anisotropy = 16;
+    var Tloader = new THREE.TextureLoader();
+    var groundTexture = Tloader.load( 'obj/grasslight-big.jpg' );
+    groundTexture.wrapS = groundTexture.wrapT = THREE.RepeatWrapping;
+    groundTexture.repeat.set( 16, 16 );
+    groundTexture.anisotropy = 16;
 
-    // var groundMaterial = new THREE.MeshLambertMaterial( { map: groundTexture } );
+    var groundMaterial = new THREE.MeshLambertMaterial( { map: groundTexture } );
 
-    // var mesh = new THREE.Mesh( new THREE.PlaneBufferGeometry( 2000, 2000 ), groundMaterial );
-    // mesh.position.y = 0;
-    // mesh.rotation.x = - Math.PI / 2;
-    // mesh.receiveShadow = true;
-    // scene.add( mesh );
+    var mesh = new THREE.Mesh( new THREE.PlaneBufferGeometry( 2000, 2000 ), groundMaterial );
+    mesh.position.y = 0;
+    mesh.rotation.x = - Math.PI / 2;
+    mesh.receiveShadow = true;
+    scene.add( mesh );
 
 
 
@@ -321,7 +322,7 @@
 
     function animate() {
 
-      TWEEN.update();
+      //TWEEN.update();
 
       camPosIndex++;
       if (camPosIndex > 1000) {
